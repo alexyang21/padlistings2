@@ -1,20 +1,17 @@
 <section class="listing">
 	<div class="container">
-		<p id="notice"><%= notice %></p>
-
-		<h4><%= @post.heading %></h4>
-
-		<p><%= link_to @post.external_url, @post.external_url %></p>
-
-		<div class="row">	
-
-			<div class="col-md-8">
+		<div class="header">
+			<p id="notice"><%= notice %></p>
+			<h4><%= @post.heading %></h4>
+			<p><%= link_to @post.external_url, @post.external_url %></p>
+		</div>
+		<div class="row">
+			<div class="col-md-7">
 				<% @images.each do |image| %>
 				  <%= image_tag image.url, class: "thumbnail" %>
 				<% end %>
 			</div>
-
-			<div class="col-md-4">
+			<div class="col-md-5">
 				<div class="basic_info">
 					<h5>Basic Information</h5>
 					<p><%= number_to_currency(@post.price) %></p>
@@ -35,10 +32,9 @@
 					<h5>Description</h5>
 					<p><%= @post.body.gsub(/\n/, '<br/>').html_safe %></p>
 				</div>
+				<%= link_to 'Back', posts_path, class: "btn btn-primary pull-right" %>
 			</div>
-
-			<%= link_to 'Back', posts_path, class: "btn btn-primary pull-right" %>
-			
 		</div>
+			
 	</div>
 </section>
