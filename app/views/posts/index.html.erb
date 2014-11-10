@@ -84,8 +84,8 @@
   <table class="table table-hover table-condensed">
     <thead>
       <tr>
-        <th class="center">Thumbnail</th>
-        <th class>Heading</th>
+        <th>Picture</th>
+        <th class="center">Heading</th>
         <th class="center">Bedrooms</th>
         <th class="center">Bathrooms</th>
         <th class="center">Price</th>
@@ -96,12 +96,12 @@
     <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <td class="center"><%= image_tag post.images.first.url %></td>
-          <td><%= link_to post.heading, post_path(post) %></td>
-          <td class="center"><%= post.bedrooms %></td>
-          <td class="center"><%= post.bathrooms %></td>
-          <td class="center"><%= number_to_currency(post.price) %></td>
-          <td class="center"><%= "#{time_ago_in_words(Time.at(post.timestamp.to_i))} ago" %></td>
+          <td width="15%" height="120px"><%= image_tag post.images.first.url, class: "thumbnail" %></td>
+          <td style="vertical-align:middle" width="45%"><%= link_to post.heading, post_path(post) %></td>
+          <td class="center" style="vertical-align:middle"><%= post.bedrooms %></td>
+          <td class="center" style="vertical-align:middle"><%= post.bathrooms %></td>
+          <td class="center" style="vertical-align:middle"><%= number_to_currency(post.price) %></td>
+          <td class="center" style="vertical-align:middle"><%= "#{time_ago_in_words(Time.at(post.timestamp.to_i))} ago" %></td>
         </tr>
       <% end %>
     </tbody>
