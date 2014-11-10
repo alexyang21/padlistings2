@@ -1,2 +1,47 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+	background-color: #edefed;
+}
+
+.center {
+	text-align: center;
+}
+
+.jumbotron {
+	background-image: url(http://pinterous.com/wp-content/uploads/2014/07/studio-apartments-for-rent-in-financial-district-nyc.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 350px;
+	margin: 0px;
+	.container {
+		padding: 50px 0px;
+		h1 {
+			text-transform: uppercase;
+			color: #fff;
+			text-shadow: 0px 2px 3px #555;
+		}
+		h2 {
+			color: #fff;
+			text-shadow: 0px 2px 3px #555;
+		}
+	}
+}
+
+.filter {
+	padding: 10px 30px;
+	margin: 20px 0px;
+	border-radius: 10px;
+	background-color: #d8ddd8;
+	label {
+		font-size: 13px;
+	}
+}
+
+.listing {
+	padding: 30px 0px;
+	h4 {
+		font-size: 22px;
+	}
+}
