@@ -39,22 +39,22 @@
   
       <div class="form-group col-md-1">
         <%= label_tag :cats %>
-        <%#= hidden_field_tag :cats, params[:cats], false %>
-        <%= check_box :cats, params[:cats], {}, "YES", "NO" %>
+        <%= check_box_tag :cats, "YES", params[:cats].present? %>
       </div>
       
       <div class="form-group col-md-1">
         <%= label_tag :dogs %>
-        <%= check_box_tag :dogs, params[:dogs], false, class: "checkbox" %>
+        <%= check_box_tag :dogs, "YES", params[:dogs].present? %>
       </div>
+      
       <div class="form-group col-md-2">
-        <%= label_tag :w_d_in_unit %>
-        <%= check_box_tag :w_d_in_unit, params[:w_d_in_unit], false, class: "checkbox" %>
+        <%= label_tag "Washer/dryer in unit" %>
+        <%= check_box_tag :w_d_in_unit, "YES", params[:w_d_in_unit].present? %>
       </div>
       
       <div class="form-group col-md-2">
         <%= label_tag :street_parking %>
-        <%= check_box_tag :street_parking, params[:street_parking], false, class: "checkbox" %>
+        <%= check_box_tag :street_parking, "YES", params[:street_parking].present? %>
       </div>
     </div>
     
@@ -71,7 +71,6 @@
     <tr>
       <th>Heading</th>
       <th>Price</th>
-      <th>URL</th>
       <th>Updated</th>
       <th colspan="1"></th>
     </tr>
@@ -82,7 +81,6 @@
       <tr>
         <td><%= post.heading %></td>
         <td><%= number_to_currency(post.price) %></td>
-        <td><%= link_to post.external_url, post.external_url %></td>
         <td><%= Time.at(post.timestamp.to_i).strftime("%m/%d/%y") %></td>
         <td><%= link_to 'Show', post %></td>
       </tr>

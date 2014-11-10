@@ -1,12 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :remove_blank_params, only: [:index]
 
   # GET /posts
   # GET /posts.json
   def index
-    params.reject! { |name, value| value.blank? }
-    
-    @posts = Post.where(nil)
+    @posts = Post.joins(:images).uniq.all
     @posts = @posts.min_price(params[:min_price]) if params[:min_price].present?
     @posts = @posts.max_price(params[:max_price]) if params[:max_price].present?
     @posts = @posts.bedrooms(params[:bedrooms]) if params[:bedrooms].present?
@@ -78,6 +77,20 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+    
+    def remove_blank_params
+      
+      check = false      
+      params.map { |name, value| check = true if value == "" }
+  
+      params.reject! { |name, value| value == "" }
+      
+      puts params.to_query
+  
+      if check == true
+        redirect_to root_path(params)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

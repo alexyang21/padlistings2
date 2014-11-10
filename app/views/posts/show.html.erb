@@ -16,10 +16,9 @@
   <%= "Square footage: #{@post.sqft}" %><br>
   <%= "Washer/dryer in unit: #{@post.w_d_in_unit}" %><br>
   <%= "Street parking available: #{@post.street_parking}" %><br>
-  
 </p>
 
-<p><%= @post.body %></p>
+<p><%= @post.body.gsub(/\n/, '<br/>').html_safe %></p>
 
 <% @images.each do |image| %>
   <%= image_tag image.url, class: "thumbnail" %>
