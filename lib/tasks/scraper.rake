@@ -7,82 +7,89 @@ namespace :scraper do
     auth_token = "4df4bbf8a2d0cfffc69fb3486f11b6a0"
     polling_url = "http://polling.3taps.com/poll"
     
-    # Specify parameters
-    params = {
-      auth_token: auth_token,
-      anchor: 1490110480, # Remember to change anchor value
-      source: "CRAIG",
-      category_group: "RRRR",
-      category: "RHFR",
-      'location.city' => "USA-NYM-BRL",
-      retvals: "id,location,timestamp,external_url,heading,body,price,annotations,images"
-    }
-
-    # Prepare API request
-    uri = URI.parse(polling_url)
-    uri.query = URI.encode_www_form(params)
-
-    # Submit request
-    result = JSON.parse(open(uri).read)
-
-    # Display results to screen
-    # puts JSON.pretty_generate result
+    loop do
     
-    # Store results in database
-    result["postings"].each do |line|
+      # Specify parameters
+      params = {
+        auth_token: auth_token,
+        anchor: Anchor.first.value, # Remember to change anchor value
+        source: "CRAIG",
+        category_group: "RRRR",
+        category: "RHFR",
+        'location.city' => "USA-NYM-BRL",
+        retvals: "id,location,timestamp,external_url,heading,body,price,annotations,images"
+      }
+
+      # Prepare API request
+      uri = URI.parse(polling_url)
+      uri.query = URI.encode_www_form(params)
+
+      # Submit request
+      result = JSON.parse(open(uri).read)
+
+      # Display results to screen
+      # puts JSON.pretty_generate result
+      puts result["anchor"]
+      Anchor.first.update(value: result["anchor"])
       
-      # Create new Post
-      @post = Post.new
-      @post.heading = line["heading"]
-      @post.body = line["body"]
-      @post.external_url = line["external_url"]
-      @post.external_id = line["external_id"]
-      @post.timestamp = line["timestamp"]
-      @post.price = line["price"]
-      
-      # Set annotation fields if listed
-      unless line["annotations"]["bedrooms"].blank?
-        @post.bedrooms = line["annotations"]["bedrooms"]
-      end
-      
-      unless line["annotations"]["bathrooms"].blank?
-        @post.bathrooms = line["annotations"]["bathrooms"]
-      end
-      
-      unless line["annotations"]["cats"].blank?
-        @post.cats = line["annotations"]["cats"]
-      end
-      
-      unless line["annotations"]["dogs"].blank?
-        @post.dogs = line["annotations"]["dogs"]
-      end
-      
-      unless line["annotations"]["sqft"].blank?
-        @post.sqft = line["annotations"]["sqft"]
-      end
-      
-      unless line["annotations"]["w_d_in_unit"].blank?
-        @post.w_d_in_unit = line["annotations"]["w_d_in_unit"]
-      end
-      
-      unless line["annotations"]["street_parking"].blank?
-        @post.street_parking = line["annotations"]["street_parking"]
-      end
-      
-      # Save Post
-      @post.save
-      
-      
-      # Create new Images
-      line["images"].each do |image|
-        @image = Image.new
-        @image.image_type = "full"
-        @image.url = image["full"]
-        @image.post_id = @post.id
-        @image.save
-      end
-  
+      break if result["postings"].empty?
     end
+    
+    # # Store results in database
+    # result["postings"].each do |line|
+      
+    #   # Create new Post
+    #   @post = Post.new
+    #   @post.heading = line["heading"]
+    #   @post.body = line["body"]
+    #   @post.external_url = line["external_url"]
+    #   @post.external_id = line["external_id"]
+    #   @post.timestamp = line["timestamp"]
+    #   @post.price = line["price"]
+      
+    #   # Set annotation fields if listed
+    #   unless line["annotations"]["bedrooms"].blank?
+    #     @post.bedrooms = line["annotations"]["bedrooms"]
+    #   end
+      
+    #   unless line["annotations"]["bathrooms"].blank?
+    #     @post.bathrooms = line["annotations"]["bathrooms"]
+    #   end
+      
+    #   unless line["annotations"]["cats"].blank?
+    #     @post.cats = line["annotations"]["cats"]
+    #   end
+      
+    #   unless line["annotations"]["dogs"].blank?
+    #     @post.dogs = line["annotations"]["dogs"]
+    #   end
+      
+    #   unless line["annotations"]["sqft"].blank?
+    #     @post.sqft = line["annotations"]["sqft"]
+    #   end
+      
+    #   unless line["annotations"]["w_d_in_unit"].blank?
+    #     @post.w_d_in_unit = line["annotations"]["w_d_in_unit"]
+    #   end
+      
+    #   unless line["annotations"]["street_parking"].blank?
+    #     @post.street_parking = line["annotations"]["street_parking"]
+    #   end
+      
+    #   # Save Post
+    #   @post.save
+      
+      
+    #   # Create new Images
+    #   line["images"].each do |image|
+    #     @image = Image.new
+    #     @image.image_type = "full"
+    #     @image.url = image["full"]
+    #     @image.post_id = @post.id
+    #     @image.save
+    #   end
+  
+    # end
   end
   
   desc "Delete database"
