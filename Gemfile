@@ -12,3 +12,5 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'autoprefixer-rails'
+gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'

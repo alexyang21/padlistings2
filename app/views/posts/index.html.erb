@@ -81,23 +81,29 @@
 
   <br>
 
-  <table class="table">
+  <table class="table table-hover table-condensed">
     <thead>
       <tr>
-        <th>Heading</th>
-        <th>Price</th>
-        <th>Updated</th>
+        <th class>Heading</th>
+        <th class="center">Bedrooms</th>
+        <th class="center">Bathrooms</th>
+        <th class="center">Price</th>
+        <th class="center">Last Updated</th>
       </tr>
     </thead>
 
     <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <td><%= post.heading %></td>
-          <td><%= number_to_currency(post.price) %></td>
-          <td><%= Time.at(post.timestamp.to_i).strftime("%m/%d/%y") %></td>
+          <td><%= link_to post.heading, post_path(post) %></td>
+          <td class="center"><%= post.bedrooms %></td>
+          <td class="center"><%= post.bathrooms %></td>
+          <td class="center"><%= number_to_currency(post.price) %></td>
+          <td class="center"><%= "#{time_ago_in_words(Time.at(post.timestamp.to_i))} ago" %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-</div>  
+  
+  <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+</div>

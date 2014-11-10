@@ -16,6 +16,8 @@ class PostsController < ApplicationController
     @posts = @posts.max_sqft(params[:max_sqft]) if params[:max_sqft].present?
     @posts = @posts.w_d_in_unit(params[:w_d_in_unit]) if params[:w_d_in_unit].present?
     @posts = @posts.street_parking(params[:street_parking]) if params[:street_parking].present?
+    
+    @posts = @posts.paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /posts/1
