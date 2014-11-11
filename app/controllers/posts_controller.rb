@@ -2,9 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :remove_blank_params, only: [:search]
 
-  def search
-    @coder = HTMLEntities.new
-    
+  def search    
     @posts = Post.order("timestamp DESC")
     @posts = @posts.min_price(params[:min_price]) if params[:min_price].present?
     @posts = @posts.max_price(params[:max_price]) if params[:max_price].present?
@@ -24,20 +22,6 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    # @posts = Post.order("timestamp DESC")
-    # @posts = @posts.min_price(params[:min_price]) if params[:min_price].present?
-    # @posts = @posts.max_price(params[:max_price]) if params[:max_price].present?
-    # @posts = @posts.bedrooms(params[:bedrooms]) if params[:bedrooms].present?
-    # @posts = @posts.bathrooms(params[:bathrooms]) if params[:bathrooms].present?
-    # @posts = @posts.neighborhood(params[:neighborhood]) if params[:neighborhood].present?
-    # @posts = @posts.cats(params[:cats]) if params[:cats].present?
-    # @posts = @posts.dogs(params[:dogs]) if params[:dogs].present?
-    # @posts = @posts.min_sqft(params[:min_sqft]) if params[:min_sqft].present?
-    # @posts = @posts.max_sqft(params[:max_sqft]) if params[:max_sqft].present?
-    # @posts = @posts.w_d_in_unit(params[:w_d_in_unit]) if params[:w_d_in_unit].present?
-    # @posts = @posts.street_parking(params[:street_parking]) if params[:street_parking].present?
-    
-    # @posts = @posts.paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /posts/1
