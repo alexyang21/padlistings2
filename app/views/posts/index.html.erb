@@ -8,18 +8,19 @@
 
     <%= form_tag search_posts_path, method: :get, class: "form-inline" do %>
       
-      <div class="row">
-        <div class="col-md-4">
-          <%= label_tag "Price" %>
-        </div>
-        <div class="col-md-2">
-          <%= label_tag :bedrooms %>
-        </div>
-        <div class="col-md-2">
-          <%= label_tag :bathrooms %>
-        </div>
-        <div class="col-md-4">
-          <%= label_tag :neighborhood %>
+        <div class="row">
+          <div class="col-md-4">
+            <%= label_tag "Price" %>
+          </div>
+          <div class="col-md-2">
+            <%= label_tag :bedrooms %>
+          </div>
+          <div class="col-md-2">
+            <%= label_tag :bathrooms %>
+          </div>
+          <div class="col-md-4">
+            <%= label_tag :neighborhood %>
+          </div>
         </div>
 
         <div class="row">
@@ -48,6 +49,7 @@
             <%= label_tag "SqFt" %>
           </div>
         </div>
+
         <div class="row">
           <div class="form-group col-md-4">
             <%= text_field_tag :min_sqft, params[:min_sqft], placeholder: "minimum", class: "form-control input-sm" %>
@@ -82,7 +84,6 @@
         <br>
 
       <% end %>
-    </div>
 
   </div>
 </div>
