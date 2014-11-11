@@ -13,11 +13,12 @@ body {
 	background-image: url(http://pinterous.com/wp-content/uploads/2014/07/studio-apartments-for-rent-in-financial-district-nyc.jpg);
 	background-position: center;
 	background-repeat: no-repeat;
-	height: 350px;
+	height: 800px;
 	margin: 0px;
 	.container {
 		padding: 50px 0px;
 		h1 {
+			margin-top: 50px;
 			text-transform: uppercase;
 			color: #fff;
 			text-shadow: 0px 2px 3px #555;
@@ -26,19 +27,20 @@ body {
 			color: #fff;
 			text-shadow: 0px 2px 3px #555;
 		}
+		.filter {
+			padding: 10px 30px;
+			margin-top: 100px;
+			border-radius: 10px;
+			background-color: #d7e2f1;
+			label {
+				font-size: 13px;
+			}
+		}
 	}
 }
 
 
-.filter {
-	padding: 10px 30px;
-	margin: 20px 0px;
-	border-radius: 10px;
-	background-color: #d7e2f1;
-	label {
-		font-size: 13px;
-	}
-}
+
 
 tbody {
 	tr {
@@ -53,6 +55,11 @@ tbody {
 		}
 	}
 }
+
+.table-hover tbody tr:hover {
+	background-color: #d7e2f1;
+}
+
 .listing {
 	padding: 30px 0px;
 	h4 {
