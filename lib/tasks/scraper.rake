@@ -71,6 +71,12 @@ namespace :scraper do
           @post.street_parking = line["annotations"]["street_parking"]
         end
         
+        if line["location"]["locality"].blank?
+          @post.neighborhood = ""
+        else
+          @post.neighborhood = Location.find_by(code: line["location"]["locality"]).name
+        end
+        
         # Save Post
         @post.save
         
@@ -95,7 +101,41 @@ namespace :scraper do
   desc "Delete database"
   task clear: :environment do
     Post.all.each do |post|
-      post.destroy
+      if post.timestamp.to_i < 3.hours.ago.to_i
+        post.destroy
+      end
+    end
+  end
+  
+  desc "Store location information in reference database"
+  task set_locations: :environment do
+    require 'open-uri'
+
+    # Set API token and URL
+    auth_token = "4df4bbf8a2d0cfffc69fb3486f11b6a0"
+    reference_url = "http://reference.3taps.com/locations"
+    
+    params = {
+      auth_token: auth_token,
+      city: "USA-NYM-BRL",
+      level: "locality"
+    }
+    
+    # Prepare API request
+    uri = URI.parse(reference_url)
+    uri.query = URI.encode_www_form(params)
+    
+    # Submit request
+    result = JSON.parse(open(uri).read)
+    
+    # Display results to screen
+    # puts JSON.pretty_generate result["locations"]
+    
+    result["locations"].each do |location|
+      @location = Location.new
+      @location.code = location["code"]
+      @location.name = location["short_name"]
+      @location.save
     end
   end
 end

@@ -15,4 +15,4 @@ gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem 'rails_12factor', group: :production
-gem 'pg', group: :development
+gem 'pg', group: :production

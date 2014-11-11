@@ -5,6 +5,7 @@ class Post < ActiveRecord::Base
   scope :max_price, -> (max) { where("price < ?", max) }
   scope :bedrooms, -> (bedrooms) { where bedrooms: bedrooms}
   scope :bathrooms, -> (bathrooms) { where bathrooms: bathrooms}
+  scope :neighborhood, -> (neighborhood) { where neighborhood: neighborhood}
   scope :cats, -> (cats) { where cats: cats}
   scope :dogs, -> (dogs) { where dogs: dogs}
   scope :min_sqft, -> (min) { where("sqft > ?", min) }

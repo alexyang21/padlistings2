@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <div class="container center">
     <h1>Craigslist Scraper</h1>
-    <h2>The easiest way to find apartment rentals in NYC.</h2>
+    <h2>The easiest way to find apartment rentals in Brooklyn</h2>
   </div>
 </div>
 
@@ -20,6 +20,9 @@
         <div class="col-md-2">
           <%= label_tag :bathrooms %>
         </div>
+        <div class="col-md-4">
+          <%= label_tag :neighborhood %>
+        </div>
       </div>
 
       <div class="row">
@@ -33,6 +36,11 @@
         </div>  
         <div class="form-group col-md-2">
           <%= text_field_tag :bathrooms, params[:bathrooms], size: "10", class: "form-control input-sm" %>
+        </div>
+        
+        <div class="col-md-4">
+          <%= select_tag(:neighborhood, options_from_collection_for_select(Location.all, :name, :name, params[:neighborhood]), 
+              { include_blank: true, class: "form-control input-sm" }) %>
         </div>
       </div>
       
@@ -86,8 +94,9 @@
       <tr>
         <th>Picture</th>
         <th class="center">Heading</th>
-        <th class="center">Bedrooms</th>
-        <th class="center">Bathrooms</th>
+        <th class="center">Neighborhood</th>
+        <th class="center">Beds</th>
+        <th class="center">Baths</th>
         <th class="center">Price</th>
         <th class="center">Last Updated</th>
       </tr>
@@ -96,17 +105,20 @@
     <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <td width="13%" height="120px">
-            <% if post.images.empty? %>
-              <!-- TO DO -->
-            <% else %>
-              <%= image_tag post.images.first.url, class: "thumbnail" %>
+          <td width="13%" height="120px">            
+            <%= link_to post_path(post) do %>
+              <% if post.images.empty? %>
+                <%= image_tag "http://www.eastbaymodern.com/idx/img/no-image.gif", class: "thumbnail" %>
+              <% else %>
+                <%= image_tag post.images.first.url, class: "thumbnail" %>
+              <% end %>
             <% end %>
           </td>
-          <td style="vertical-align:middle" width="45%"><%= link_to post.heading, post_path(post) %></td>
+          <td style="vertical-align:middle" width="45%"><%= post.heading %></td>
+          <td class="center" style="vertical-align:middle"><%= post.neighborhood %></td>
           <td class="center" style="vertical-align:middle"><%= post.bedrooms %></td>
           <td class="center" style="vertical-align:middle"><%= post.bathrooms %></td>
-          <td class="center" style="vertical-align:middle"><%= number_to_currency(post.price) %></td>
+          <td class="center" style="vertical-align:middle"><%= number_to_currency(post.price, precision: 0) %></td>
           <td class="center" style="vertical-align:middle"><%= "#{time_ago_in_words(Time.at(post.timestamp.to_i))} ago" %></td>
         </tr>
       <% end %>
