@@ -3,6 +3,8 @@ class PostsController < ApplicationController
   before_action :remove_blank_params, only: [:search]
 
   def search
+    @coder = HTMLEntities.new
+    
     @posts = Post.order("timestamp DESC")
     @posts = @posts.min_price(params[:min_price]) if params[:min_price].present?
     @posts = @posts.max_price(params[:max_price]) if params[:max_price].present?
