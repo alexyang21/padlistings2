@@ -94,8 +94,12 @@ namespace :scraper do
   
   desc "Delete database"
   task clear: :environment do
+    puts Post.all.length
     Post.all.each do |post|
-      post.destroy
+      if post.timestamp.to_i < 3.hours.ago.to_i
+        post.destroy
+      end
     end
+    puts Post.all.length
   end
 end
