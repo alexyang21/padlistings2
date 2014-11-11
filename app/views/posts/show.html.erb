@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="header">
 			<p id="notice"><%= notice %></p>
-			<h4><%= @post.heading %></h4>
+			<h4><%= @post.heading.html_safe %></h4>
 			<p><%= link_to @post.external_url, @post.external_url %></p>
 		</div>
 		<div class="row">
@@ -30,7 +30,8 @@
 				</div>
 				<div class="description">
 					<h5>Description</h5>
-					<p><%= @post.body.gsub(/\n/, '<br/>').html_safe %></p>
+          <p><%= raw(@post.body) %></p>
+					<p><%#= @post.body.gsub(/\n/, '<br/>').html_safe %></p>
 				</div>
 				<%= link_to 'Back', posts_path, class: "btn btn-primary pull-right" %>
 			</div>

@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.joins(:images).uniq.all
+    @posts = Post.order("timestamp DESC")
     @posts = @posts.min_price(params[:min_price]) if params[:min_price].present?
     @posts = @posts.max_price(params[:max_price]) if params[:max_price].present?
     @posts = @posts.bedrooms(params[:bedrooms]) if params[:bedrooms].present?

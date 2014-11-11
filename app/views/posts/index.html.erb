@@ -96,7 +96,13 @@
     <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <td width="15%" height="120px"><%= image_tag post.images.first.url, class: "thumbnail" %></td>
+          <td width="15%%" height="120px">
+            <% if post.images.empty? %>
+              <!-- TO DO -->
+            <% else %>
+              <%= image_tag post.images.first.url, class: "thumbnail" %>
+            <% end %>
+          </td>
           <td style="vertical-align:middle" width="45%"><%= link_to post.heading, post_path(post) %></td>
           <td class="center" style="vertical-align:middle"><%= post.bedrooms %></td>
           <td class="center" style="vertical-align:middle"><%= post.bathrooms %></td>
