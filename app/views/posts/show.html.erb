@@ -21,6 +21,10 @@
           <p><%= number_to_currency(@post.price, precision: 0) %></p>
 
           <p><%= "Last updated on #{Time.at(@post.timestamp.to_i).strftime("%m/%d/%y")}" %></p>
+          
+          <% if @post.neighborhood.present? %>
+            <%= "Neighborhood: #{@post.neighborhood}" %><br>
+          <% end %>
 
           <% if @post.bedrooms.present? %>
             <%= "Bedrooms: #{@post.bedrooms}" %><br>
@@ -57,6 +61,8 @@
           <p><%= raw(@post.body) %></p>
           <p><%#= @post.body.gsub(/\n/, '<br/>').html_safe %></p>
         </div>
+        
+        <%= image_tag "https://maps.google.com/?q=loc%3A+bedford+ave+at+shore+pkwy+brooklyn+NY+US" %>
         
         <%= link_to 'Back', posts_path, class: "btn btn-primary pull-right" %>
         

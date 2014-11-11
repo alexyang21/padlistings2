@@ -20,6 +20,9 @@
         <div class="col-md-2">
           <%= label_tag :bathrooms %>
         </div>
+        <div class="col-md-4">
+          <%= label_tag :neighborhood %>
+        </div>
       </div>
 
       <div class="row">
@@ -33,6 +36,11 @@
         </div>  
         <div class="form-group col-md-2">
           <%= text_field_tag :bathrooms, params[:bathrooms], size: "10", class: "form-control input-sm" %>
+        </div>
+        
+        <div class="col-md-4">
+          <%= select_tag(:neighborhood, options_from_collection_for_select(Location.all, :name, :name, params[:neighborhood]), 
+              { include_blank: true, class: "form-control input-sm" }) %>
         </div>
       </div>
       
@@ -86,8 +94,9 @@
       <tr>
         <th>Picture</th>
         <th class="center">Heading</th>
-        <th class="center">Bedrooms</th>
-        <th class="center">Bathrooms</th>
+        <th class="center">Neighborhood</th>
+        <th class="center">Beds</th>
+        <th class="center">Baths</th>
         <th class="center">Price</th>
         <th class="center">Last Updated</th>
       </tr>
@@ -106,6 +115,7 @@
             <% end %>
           </td>
           <td style="vertical-align:middle" width="45%"><%= post.heading %></td>
+          <td class="center" style="vertical-align:middle"><%= post.neighborhood %></td>
           <td class="center" style="vertical-align:middle"><%= post.bedrooms %></td>
           <td class="center" style="vertical-align:middle"><%= post.bathrooms %></td>
           <td class="center" style="vertical-align:middle"><%= number_to_currency(post.price, precision: 0) %></td>

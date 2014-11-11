@@ -10,6 +10,7 @@ class PostsController < ApplicationController
     @posts = @posts.max_price(params[:max_price]) if params[:max_price].present?
     @posts = @posts.bedrooms(params[:bedrooms]) if params[:bedrooms].present?
     @posts = @posts.bathrooms(params[:bathrooms]) if params[:bathrooms].present?
+    @posts = @posts.neighborhood(params[:neighborhood]) if params[:neighborhood].present?
     @posts = @posts.cats(params[:cats]) if params[:cats].present?
     @posts = @posts.dogs(params[:dogs]) if params[:dogs].present?
     @posts = @posts.min_sqft(params[:min_sqft]) if params[:min_sqft].present?
