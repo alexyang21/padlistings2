@@ -71,11 +71,11 @@ namespace :scraper do
           @post.street_parking = line["annotations"]["street_parking"]
         end
         
-        if line["location"]["locality"].blank?
-          @post.neighborhood = ""
-        else
-          @post.neighborhood = Location.find_by(code: line["location"]["locality"]).name
-        end
+        # if line["location"]["locality"].blank?
+        #   @post.neighborhood = ""
+        # else
+          @post.neighborhood = Location.find_by(code: line["location"]["locality"]).try(:name)
+        # end
         
         # Save Post
         @post.save
