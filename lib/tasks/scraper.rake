@@ -87,6 +87,7 @@ namespace :scraper do
         end
     
       end
+      
       puts result["anchor"]
       Anchor.first.update(value: result["anchor"])
       
